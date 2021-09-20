@@ -11,6 +11,19 @@ be extended easly.
     - Redoc: /api/v1/redoc/
     - Swagger: /api/v1/swagger/
     
+# Adding more statistics
+- If you want to add your own statistic you need to take two steps:
+    1. Inherit from `pickystats.analyzer.BaseCustomStats` and Implement the
+    `get_analysis` method. Let's call it `MyCustomPickStats`
+       
+    2. Next You have to add `MyCustomPickStats` to `pickystats.analyzer.PickyStat` `analyzer` list.
+    That's it. Just note that you have to operate on self.normalized_data when inheriting form `BaseCustomStat`
+       
+# Adding more output formats
+- Provided that you have implemented your own output formatting class, you can plug it in by
+adding a method to `pickystats.analyzer.DataFormatters` and chose a name for the format and add 
+  it to the `self._formats` dict. That's it. 
+    
 # Running Tests:
 - Issue: 
     - `pytest -v`
