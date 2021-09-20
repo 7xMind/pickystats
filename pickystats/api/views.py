@@ -5,9 +5,12 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+import logging
+
 from ..analyzer import PickyStats
 from .serializers import FileUploadSerializer
 
+logger = logging.getLogger(__name__)
 
 # quick fix to enable swagger
 @method_decorator(
@@ -23,6 +26,8 @@ class DataAnalyzerView(APIView):
 
     parser_classes = [MultiPartParser, ]
     def post(self, request, *args, **kwargs):
+
+        logger.info('User uploaded a file to ba analyzed')
 
         formatter = request.query_params.get('formatter', 'json')
         serializer = FileUploadSerializer(data=request.data)

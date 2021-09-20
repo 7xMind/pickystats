@@ -38,7 +38,7 @@ class BasicParser(BaseParser):
     def get_normalized_items(self) -> typing.Dict[str, list]:
         """
         returns list of normalized items:
-        :return:
+        :return: typing.Dict[str, list]
         """
         valid_raw_items = self.get_valid_raw_items()
         final_normalized_items = defaultdict(list)
@@ -72,16 +72,26 @@ class BasicParser(BaseParser):
                     self.invalid_items.append(item)
         return valid_raw_items
 
-    def _name_and_time_are_valid(self, *, name, time):
+    def _name_and_time_are_valid(self, *, name: str, time: float):
         return self.validator(name).is_valid_name() and self.validator(time).is_valid_number()
 
     def _get_normalized_name(self, name) -> str:
+        """
+        A simple normalizer to account for mistyped names.
+        :param name: name to be normalized
+        :return: str
+        """
         return name.strip().title()
 
     def _get_normalized_minute(self, number: float):
+        """
+        A simple normalizer for the time input, converting them into positive floats.
+        :param number: float
+        :return:
+        """
         return abs(float(number))
 
-
+# For direct testing.
 if __name__ == '__main__':
     with open('sample.rtf', 'r') as f:
         ff = f.read()
