@@ -43,6 +43,7 @@ class BaseCustomStats:
     """
 
     def __init__(self, normalized_data: typing.Dict[str, list]):
+        # TODO: We could further verify the structure of normalized_data
         self.normalized_data = normalized_data
 
     def get_analysis(self):
@@ -52,9 +53,9 @@ class BaseCustomStats:
 class WorkingHours(BaseCustomStats):
 
     def get_analysis(self):
-        pass
+        return self.get_working_hours()
 
-    def get_working_hours(self) -> dict:
+    def get_working_hours(self) -> typing.OrderedDict[str, typing.Dict[str, float]]:
         ordered_results = OrderedDict()
         employee_working_hours_pair = {name: sum(time) for name, time in self.normalized_data.items()}
         max_working_employees = sorted(
@@ -62,6 +63,7 @@ class WorkingHours(BaseCustomStats):
             key=employee_working_hours_pair.get,
             reverse=True
         )
+        name: str
         for name in max_working_employees:
             ordered_results[name] = {'time': employee_working_hours_pair[name]}
         return ordered_results
@@ -70,9 +72,10 @@ class WorkingHours(BaseCustomStats):
 class AverageWorkingMinutes(BaseCustomStats):
 
     def get_analysis(self):
+
         return self._get_average_working_minutes()
 
-    def _get_average_working_minutes(self):
+    def _get_average_working_minutes(self) -> typing.Dict[str, float]:
         result = {}
         total_number_of_registered_times: int = sum(
             len(employee_times) for employee_times in self.normalized_data.values()
