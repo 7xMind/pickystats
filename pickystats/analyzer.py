@@ -1,5 +1,5 @@
-from collections import OrderedDict
 import typing
+from collections import OrderedDict
 
 if not __package__:
     from parser import BaseParser, BasicParser

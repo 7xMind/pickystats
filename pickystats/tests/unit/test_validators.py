@@ -1,5 +1,6 @@
 from ...validators import InputValidator
 
+
 class TestValidators:
 
     def test_validator_validates_name_correctly(self):

@@ -6,8 +6,9 @@ Assumptions:
     - Elements of the text file are comma-separated.
     - If lowered-cased, identical names would refer to the same person.
 """
-from collections import defaultdict
 import typing
+from collections import defaultdict
+
 from striprtf.striprtf import rtf_to_text
 
 # For direct testing
